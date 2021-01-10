@@ -1,18 +1,64 @@
-@model TModel
+@model IList<Blog.Models.Category>
 
 @{
-    Layout = null;
+    // Layout = null;
+    ViewData["Title"] = "categories list";
 }
 
-<!DOCTYPE html>
+<h1>Categories List</h1>
+<partial name="_MessagePartial"/>
+<p class="text-right">
+    <a asp-controller="Category" asp-action="Create" > Add New Category</a>
+</p>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+
+<table class="table">
+    <thead>
+    <th> S.N  </th>
+        <th>  Name </th>
+        <th> Action </th>
+    
+    </thead>
+    <tbody>
+    @* @for(int i = 0; i < Model.Length; i++) *@
+    
+    @* @foreach (Category category in Model) *@
+    @for(int i = 0; i < Model.Count;  i++)
+    {
+        
+        <tr>
+            <td>
+            @(i + 1)
+            </td>
+            <td>
+                @Model[i].Name
+            </td>
+            <td>
+                @* <div class="row"> *@
+                @*     <div class="col-md-2"> *@
+                @*         <a asp-action="Edit" class="btn btn-sm btn-primary" asp-route-id="@Model[i].CategoryId"> Edit </a>         *@
+                @*     </div> *@
+                @*     <div class="col-md-2 offset-1"> *@
+                @*         <form asp-action="Delete" asp-route-id="@Model[i].CategoryId" class="ml-2 mt-0" > *@
+                @*                             <input type="submit" class="btn btn-sm btn-danger mt-0" name="submit" value="delete"/> *@
+                @*                         </form>         *@
+                @*     </div> *@
+                @* </div> *@
+
+                <div >
+                    <div >
+                        <a asp-action="Edit" class="btn btn-sm btn-primary" asp-route-id="@Model[i].CategoryId"> Edit </a>
+                    </div>
+                    <div class="ml-2">
+                        <form asp-action="Delete" asp-route-id="@Model[i].CategoryId" class="ml-2 mt-0">
+                            <input type="submit" class="btn btn-sm btn-danger mt-0" name="submit" value="delete"/>
+                        </form>
+                    </div>
+                </div>
+                
+                
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

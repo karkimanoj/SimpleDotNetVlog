@@ -1,5 +1,6 @@
 using System;
 using Blog.Areas.Identity.Data;
+using Blog.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -14,14 +15,16 @@ namespace Blog.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
-                services.AddDbContext<BlogIdentityDbContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("BlogIdentityDbContextConnection")));
+            builder.ConfigureServices((context, services) => 
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(context.Configuration.GetConnectionString("Connection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<BlogIdentityDbContext>();
+                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             });
+            
         }
     }
 }

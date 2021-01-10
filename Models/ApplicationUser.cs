@@ -1,4 +1,11 @@
-$HEADER$namespace $NAMESPACE$
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+
+namespace Blog.Models
 {
-  public class $CLASS$ {$END$}
+    public class ApplicationUser : IdentityUser
+    {
+        public List<Post> Posts { get; set; }
+        public List<PermissionUser> PermissionUsers { get; set; }
+    }
 }

@@ -4,14 +4,16 @@ using Blog.Areas.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Blog.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200927152041_AddPermissionAndPermissionUserSeeder")]
+    partial class AddPermissionAndPermissionUserSeeder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,12 +223,6 @@ namespace Blog.Migrations
                             PermissionId = 15L,
                             DisplayName = "activate deactivate user",
                             Name = "activate_deactivate_user"
-                        },
-                        new
-                        {
-                            PermissionId = 16L,
-                            DisplayName = "verify post",
-                            Name = "verify_post"
                         });
                 });
 
@@ -396,12 +392,6 @@ namespace Blog.Migrations
                         {
                             PermissionUserId = 24L,
                             PermissionId = 15L,
-                            UserId = "5c49772c-a43f-45d5-be7b-55a877a3644e"
-                        },
-                        new
-                        {
-                            PermissionUserId = 25L,
-                            PermissionId = 16L,
                             UserId = "5c49772c-a43f-45d5-be7b-55a877a3644e"
                         });
                 });
