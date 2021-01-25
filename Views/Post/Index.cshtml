@@ -1,0 +1,23 @@
+@model IList<Blog.Models.Category>
+
+@{
+    // Layout = null;
+    ViewData["Title"] = "blog list";
+}
+
+<h1>Categories List</h1>
+<partial name="_MessagePartial"/>
+<p class="text-right">
+    <a asp-controller="Category" asp-action="Create" > Add New Category</a>
+</p>
+
+
+<table class="table">
+    <thead>
+    <th> S.N  </th>
+        <th>  Name </th>
+        <th> Action </th>
+    
+    </thead>
+    <tbody>
+</table>

@@ -1,0 +1,53 @@
+@model TagsViewModel
+
+@{
+    ViewData["Title"] = "All Tags";
+}
+
+<h1>All Tags</h1>
+<partial name="_MessagePartial"/>
+<br/>
+
+<div class="row">
+	<div class="col-md-6 offset-md-1">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+			</tr>
+			</thead>
+			<tbody>
+			@for (int i = 0; i < Model.Tags.Count; i++)
+			{
+				<tr>
+					<td>
+						@(i + 1)
+					</td>
+					<td>
+						@Model.Tags[i].Name
+					</td>
+				</tr>
+			}
+
+			</tbody>
+		</table>
+	</div>
+	<div class="col-md-5">
+		<form asp-action="Create" method="post">
+			<div class="text-danger" asp-validation-summary="All"></div>
+			<div class="form-group">
+				<label asp-for="Tag.Name" class="control-label"></label>
+				<input asp-for="Tag.Name" class="form-control"/>
+				<span asp-validation-for="Tag.Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" name="submit" class="btn btn-primary" value="Add"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

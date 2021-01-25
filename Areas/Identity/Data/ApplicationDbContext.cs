@@ -20,6 +20,10 @@ namespace Blog.Areas.Identity.Data
         public DbSet<Post> Post { get; set; }
         public DbSet<Permission> Permission { get; set;}
         public DbSet<PermissionUser> PermissionUser { get; set;}
+        
+        public DbSet<Tag> Tag { get; set;}
+        
+        public DbSet<PostTag> PostTag { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -65,6 +69,23 @@ namespace Blog.Areas.Identity.Data
             var permissionUserEntity = builder.Entity<PermissionUser>();
             permissionUserEntity.HasIndex("PermissionId", "UserId")
                 .IsUnique();
+            
+            //Tag
+            var tagEntity = builder.Entity<Tag>();
+            tagEntity.HasIndex(t => t.Name).IsUnique();
+            tagEntity.Property(t => t.Name).IsRequired();
+            
+            //post tag
+            var postTagEntity = builder.Entity<PostTag>();
+            postTagEntity.HasIndex("PostId", "TagId").IsUnique();
+
+            // postTagEntity.HasOne(pt => pt.Post)
+            //     .WithMany(p => p.PostTags)
+            //     .HasForeignKey(pt => pt.PostId);
+            //
+            // postTagEntity.HasOne(pt => pt.Tag)
+            //     .WithMany(t => t.PostTags)
+            //     .HasForeignKey(pt => pt.TagId);
             
             /*
              * start seeders
