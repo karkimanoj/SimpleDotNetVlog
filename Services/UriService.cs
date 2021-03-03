@@ -14,7 +14,7 @@ namespace Blog.Services
         {
             _httpContext = httpContextAccessor.HttpContext;
             var request = _httpContext.Request;
-            _baseUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());;
+            _baseUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
         }
         
         public Uri GetPageUri(int pageNo, string route)
