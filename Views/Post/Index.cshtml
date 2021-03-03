@@ -1,4 +1,4 @@
-@model IList<Blog.Models.Category>
+@model IList<Blog.Models.Post>
 
 @{
     // Layout = null;
@@ -11,13 +11,16 @@
     <a asp-controller="Category" asp-action="Create" > Add New Category</a>
 </p>
 
-
-<table class="table">
-    <thead>
-    <th> S.N  </th>
-        <th>  Name </th>
-        <th> Action </th>
-    
-    </thead>
-    <tbody>
-</table>
+@foreach (var t in Model)
+{
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2> @t.Title </h2>
+            <h6> published: @t.CreatedAt </h6>
+            <p>@t.Body</p>
+            <p>@t.Body.Substring(0, t.Body.Length >= 300 ? 300 : t.Body.Length) @if (t.Body.Length > 300){<span> ... </span>}</p>
+            @* <a href="{{ route('blog.single', $post->slug) }}" class="btn btn-primary">read more</a> *@
+            <hr>
+        </div>
+    </div>
+}

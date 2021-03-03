@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Areas.Identity.Authorization;
 using Blog.Areas.Identity.Data.Seeder;
+using Blog.Contracts;
 using Blog.Data.Repositories;
 using Blog.Middlewares;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -18,7 +19,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Blog
 {
@@ -61,6 +64,8 @@ namespace Blog
             services.AddScoped<IAuthorizationHandler, PermissionHandler>();
             services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
             
+            services.AddHttpContextAccessor();
+            // services.TryAdd(ServiceDescriptor.Scoped(typeof(IOptions<>), typeof(OptionsManager<>)));
             //start: repositories
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();

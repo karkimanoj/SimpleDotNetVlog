@@ -35,10 +35,10 @@ namespace Blog.Controllers
             _userManager = userManager;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
-            return View();
+            List<Post> allPosts = await _postRepository.All();
+            return View(allPosts);
         }
 
         public async Task<IActionResult> Create()
