@@ -14,6 +14,7 @@ namespace Blog.Models
         public DateTime UpdatedAt { get; set; }
 
         // public List<Post> Posts { get; set; }
+        
         public List<Post> Posts { get; set;}
     }
 }

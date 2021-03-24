@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Blog.Areas.Identity.Data;
 using Blog.Data.Repositories;
 using Blog.Models;
+using Blog.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -35,9 +36,14 @@ namespace Blog.Controllers
             _userManager = userManager;
         }
         
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNo)
         {
-            List<Post> allPosts = await _postRepository.All();
+            //List<Post> allPosts = await _postRepository.All();
+            Pagination<Post> allPosts = await _postRepository.Paginate(pageNo, 1);
+            
+            
+            //return Ok(await _postRepository.Paginate(HttpContext.Request));
+            
             return View(allPosts);
         }
 

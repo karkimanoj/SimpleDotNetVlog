@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Blog.Areas.Identity.Data;
+using Blog.Contracts;
 using Blog.Models;
+using Blog.Services;
+using Blog.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Blog.Data.Repositories
 {
     public class PostRepository : IPostRepository
     {
         private readonly ApplicationDbContext _db;
-        public PostRepository(ApplicationDbContext context) => _db = context;
+        private readonly IUriService _uriService;
+        
+        public PostRepository(ApplicationDbContext context, IUriService uriService)
+        {
+            _db = context;
+            _uriService = uriService;
+        } 
 
         public async  Task<bool> AnyForSlug(string slug)
         {
@@ -31,8 +42,12 @@ namespace Blog.Data.Repositories
         {
             await _db.Entry(post).Navigation(propertyName).LoadAsync();
         }
-        
-  
-        
+
+
+        public async Task<Pagination<Post>> Paginate(int pageNo, int perPage = 10)
+        {
+            IQueryable<Post> postQuery = _db.Post;
+            return await PaginationHelper<Post>.CreatePagedResponse(_uriService, postQuery, pageNo, perPage);
+        }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 //using System.Data.Entity;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore; //always use Microsoft.EntityFrameworkCore in .net core instead of System.Data.Entity; 
+using Microsoft.EntityFrameworkCore; //todo : always use Microsoft.EntityFrameworkCore in .net core instead of System.Data.Entity; 
 
 namespace Blog.Controllers
 {
@@ -30,7 +30,7 @@ namespace Blog.Controllers
         public async Task<IActionResult> Index()
         {
             //return Ok(user); return json . can be use d like dd() in php
-        
+            
             //return Ok(PermissionAndUserPermissionSeederData.Permissions);
             return View(await _db.Category.ToListAsync());
         }

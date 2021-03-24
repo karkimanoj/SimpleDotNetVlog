@@ -2,8 +2,8 @@ using System;
 
 namespace Blog.Contracts
 {
-    public class IUriService
+    public interface IUriService
     {
-        public Uri GetPageUri(PaginationFilter filter, string route)
+        public Uri GetPageUri(int? pageNo);
     }
 }

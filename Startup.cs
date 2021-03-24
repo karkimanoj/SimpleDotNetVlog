@@ -8,6 +8,7 @@ using Blog.Areas.Identity.Data.Seeder;
 using Blog.Contracts;
 using Blog.Data.Repositories;
 using Blog.Middlewares;
+using Blog.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -48,7 +49,7 @@ namespace Blog
             
             // services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //     .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddRazorPages();
             
             //if both cookie and token based authentication is needed
@@ -66,6 +67,7 @@ namespace Blog
             
             services.AddHttpContextAccessor();
             // services.TryAdd(ServiceDescriptor.Scoped(typeof(IOptions<>), typeof(OptionsManager<>)));
+            services.AddSingleton<IUriService, UriService>();
             //start: repositories
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
