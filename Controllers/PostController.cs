@@ -36,7 +36,7 @@ namespace Blog.Controllers
             _userManager = userManager;
         }
         
-        public async Task<IActionResult> Index(int pageNo)
+        public async Task<IActionResult> Index(int pageNo = 1)
         {
             //List<Post> allPosts = await _postRepository.All();
             Pagination<Post> allPosts = await _postRepository.Paginate(pageNo, 1);
@@ -157,7 +157,12 @@ namespace Blog.Controllers
             }
           
         }
-        
+
+
+        public int show(int postId)
+        {
+            return postId;
+        }
         
         
         private async Task AddViewDataForPost(AddPostViewModel model)

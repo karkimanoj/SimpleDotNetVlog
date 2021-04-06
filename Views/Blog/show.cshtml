@@ -1,0 +1,81 @@
+@model ShowBlogViewModel
+
+@{
+    // Layout = null;
+    ViewData["Title"] = "blog list";
+}
+
+<h1>Blog</h1>
+<partial name="_MessagePartial"/>
+
+<p class="text-right">
+    <a asp-controller="Blog" asp-action="Index" > All Blogs</a>
+</p>
+
+<div class="row">
+	<div class="col-md-8 offset-md-2">
+		<h1>Title : @Model.Post.Title</h1>
+		<h3>Published At : @Model.Post.CreatedAt</h3>
+		<h3>Author : @Model.Post.Author.UserName</h3>
+		<p>@Model.Post.Body </p>
+		<hr>
+		<strong>Posted in: </strong> @Model.Post.Category.Name
+	</div>
+</div>
+
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+			<div class="comment-title top-spacing-30">
+				<h3><span class="glyphicon glyphicon-comment"></span>@Model.Post.Comments.Count comments</h3>
+			</div>
+			
+			@for(int i = 0; i < Model.Post.Comments.Count; i++)
+			{
+				Comment comment = Model.Post.Comments[i];
+				<div class="media top-spacing-20">
+
+					<img src="https://www.gravatar.com/avatar/@(Model.AddCommentInputModel.Email)?s=50&d=monsterid"  class=" mr-3 author-image" alt="aaaa">
+
+					<div class="media-body">
+						<h4 class="mt-0">@comment.Name</h4>
+						<p class="author-time"> @comment.CreatedAt</p>
+						<div class="comment-content">
+							@comment.Description
+						</div>
+					</div>
+
+				</div>
+
+			}
+			</div>
+		</div>
+
+<div class="row">
+	<div class="col-md-8 offset-md-2">
+		@* <form asp-controller="Comment" asp-action="Create"> *@
+		<form>
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<div class="row">
+				<div class="col-md-6 form-group">
+					<label asp-for="AddCommentInputModel.Name" class="custom-control-label"></label>
+					<input asp-for="AddCommentInputModel.Name" class="form-control"/>
+				</div>
+				<div class="col-md-6 form-group">
+					<label asp-for="AddCommentInputModel.Email" class="custom-control-label"></label>
+					<input asp-for="AddCommentInputModel.Email" class="form-control"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="AddCommentInputModel.Description" class="custom-control-label"></label>
+				<textarea asp-for="AddCommentInputModel.Description" rows="5" class="form-control"></textarea>
+				<label>Comment:</label>
+			</div>
+			<input type="submit" name="submit" class="btn btn-success btn-block">
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+}

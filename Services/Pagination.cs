@@ -45,7 +45,6 @@ namespace Blog.Services
         
         public async Task Paginate(IQueryable<T> dbQuery, int pageNo, int perPage = 10)
         {
-            //_uriService = uriService;
             PerPage = perPage;
             Current = pageNo;
             Total = await dbQuery.CountAsync();

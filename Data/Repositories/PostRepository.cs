@@ -23,12 +23,7 @@ namespace Blog.Data.Repositories
             _db = context;
             _uriService = uriService;
         } 
-
-        public async  Task<bool> AnyForSlug(string slug)
-        {
-            return await _db.Post.AnyAsync(p => p.Slug == slug);
-        }
-
+        
         public async Task<List<Post>> All()
         {
             return await _db.Post
@@ -38,11 +33,48 @@ namespace Blog.Data.Repositories
                 .ToListAsync();
         }
 
+        public async  Task<bool> AnyForSlug(string slug)
+        {
+            return await _db.Post.AnyAsync(p => p.Slug == slug);
+        }
+        
+        public async  Task<Post> FindWithCategoryAuthorAndCommentsForSlug(string slug)
+        {
+            return await _db.Post.Include(p => p.Author)
+                .Include(p=> p.Category)
+                .Include(p => p.Comments)
+                .FirstOrDefaultAsync(p => p.Slug == slug);
+            
+            // return await _db.Post.FirstOrDefaultAsyn(p => p.Slug == slug);
+        }
+        
+        public async  Task<Post> FindWithCategoryAuthorAndCommentsForPostId(int postId)
+        {
+            return await _db.Post.Include(p => p.Author)
+                .Include(p=> p.Category)
+                .Include(p => p.Comments)
+                .FirstOrDefaultAsync(p => p.PostId == postId);
+     
+        }
+
+        public async  Task<bool> AnyForId(int postId)
+        {
+            return await _db.Post.AnyAsync(p => p.PostId == postId);
+        }
+        
         public async Task Load(Post post, string propertyName)
         {
             await _db.Entry(post).Navigation(propertyName).LoadAsync();
         }
-
+        
+        // public async  Task<Post> LoadCategoryAuthorAndComments(Post Post)
+        // {
+        //     return await _db.Post.Include(p => p.Author)
+        //         .Include(p=> p.Category)
+        //         .Include(p => p.Comments)
+        //         .FirstOrDefaultAsync(p => p.Slug == slug);
+        //     
+        // }
 
         public async Task<Pagination<Post>> Paginate(int pageNo, int perPage = 10)
         {

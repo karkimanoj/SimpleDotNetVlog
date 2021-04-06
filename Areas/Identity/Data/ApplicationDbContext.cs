@@ -25,6 +25,8 @@ namespace Blog.Areas.Identity.Data
         
         public DbSet<PostTag> PostTag { get; set; }
 
+        public DbSet<Comment> Comment { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -57,6 +59,9 @@ namespace Blog.Areas.Identity.Data
             postEntity.Property(p => p.Body)
                 .IsRequired()
                 ;
+
+            postEntity.HasMany(p => p.Comments)
+                .WithOne(c => c.Post);
             
             //permission
             var permissionEntity = builder.Entity<Permission>();
@@ -86,6 +91,22 @@ namespace Blog.Areas.Identity.Data
             // postTagEntity.HasOne(pt => pt.Tag)
             //     .WithMany(t => t.PostTags)
             //     .HasForeignKey(pt => pt.TagId);
+            
+            
+            //comment
+            var commentEntity = builder.Entity<Comment>();
+            commentEntity.Property(c => c.Email)
+                .IsRequired()
+                .HasMaxLength(255);
+            commentEntity.Property(c => c.Name)
+                .HasMaxLength(255);
+            commentEntity.Property(c => c.Description)
+                .IsRequired()
+                .HasMaxLength(2000);
+            
+            commentEntity.HasOne(c => c.Post)
+                .WithMany(p => p.Comments);
+            
             
             /*
              * start seeders

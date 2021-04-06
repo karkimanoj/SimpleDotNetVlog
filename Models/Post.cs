@@ -29,5 +29,7 @@ namespace Blog.Models
         public Category Category { get; set; }
         public ApplicationUser Author { get; set; }
         public List<PostTag> PostTags { get; set; }
+        
+        public List<Comment> Comments { get; set; }
     }
 }

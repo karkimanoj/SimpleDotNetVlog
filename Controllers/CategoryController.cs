@@ -29,9 +29,6 @@ namespace Blog.Controllers
         
         public async Task<IActionResult> Index()
         {
-            //return Ok(user); return json . can be use d like dd() in php
-            
-            //return Ok(PermissionAndUserPermissionSeederData.Permissions);
             return View(await _db.Category.ToListAsync());
         }
         

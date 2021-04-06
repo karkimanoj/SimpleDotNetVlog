@@ -15,7 +15,7 @@
 {
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <h2> @Model[i].Title </h2>
+            <h2>  <a asp-controller="Blog" asp-action="show" > @Model[i].Title </a> </h2>
             <h6> published: @Model[i].CreatedAt </h6>
             <p>@Model[i].Body</p>
             <p>@Model[i].Body.Substring(0, @Model[i].Body.Length >= 300 ? 300 : @Model[i].Body.Length) @if (Model[i].Body.Length > 300){<span> ... </span>}</p>
@@ -62,3 +62,5 @@
         </nav>
     </p>
 }
+
+
