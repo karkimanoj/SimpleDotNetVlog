@@ -5,6 +5,6 @@ namespace Blog.Contracts
 {
     public interface IPostService
     {
-        public  Task<ShowBlogViewModel> GetShowBlogViewModel( AddCommentInputModel addCommentInputModel, int postId);
+        public  Task<ShowBlogViewModel> GetShowBlogViewModel( AddCommentInputModel addCommentInputModel, long postId);
     }
 }

@@ -68,6 +68,7 @@ namespace Blog
             services.AddHttpContextAccessor();
             // services.TryAdd(ServiceDescriptor.Scoped(typeof(IOptions<>), typeof(OptionsManager<>)));
             services.AddSingleton<IUriService, UriService>();
+            services.AddScoped<IPostService, PostService>();
             //start: repositories
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();

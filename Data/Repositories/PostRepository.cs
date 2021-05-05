@@ -7,7 +7,6 @@ using Blog.Contracts;
 using Blog.Models;
 using Blog.Services;
 using Blog.Utils;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -48,7 +47,7 @@ namespace Blog.Data.Repositories
             // return await _db.Post.FirstOrDefaultAsyn(p => p.Slug == slug);
         }
         
-        public async  Task<Post> FindWithCategoryAuthorAndCommentsForPostId(int postId)
+        public async  Task<Post> FindWithCategoryAuthorAndCommentsForPostId(long postId)
         {
             return await _db.Post.Include(p => p.Author)
                 .Include(p=> p.Category)
@@ -57,7 +56,7 @@ namespace Blog.Data.Repositories
      
         }
 
-        public async  Task<bool> AnyForId(int postId)
+        public async  Task<bool> AnyForId(long postId)
         {
             return await _db.Post.AnyAsync(p => p.PostId == postId);
         }

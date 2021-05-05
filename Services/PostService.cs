@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
+using Blog.Contracts;
 using Blog.Data.Repositories;
 using Blog.Models;
 
 namespace Blog.Services
 {
-    public class PostService
+    public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
         public PostService(IPostRepository postRepository)
@@ -12,7 +13,7 @@ namespace Blog.Services
             _postRepository = postRepository;
         }
 
-        public async Task<ShowBlogViewModel> GetShowBlogViewModel( AddCommentInputModel addCommentInputModel, int postId)
+        public async Task<ShowBlogViewModel> GetShowBlogViewModel( AddCommentInputModel addCommentInputModel, long postId)
         {
             return new ShowBlogViewModel()
             {

@@ -19,24 +19,20 @@ namespace Blog.Controllers
         
         public async Task<IActionResult> Index(int pageNo = 1)
         {
-            //List<Post> allPosts = await _postRepository.All();
             Pagination<Post> allPosts = await _postRepository.Paginate(pageNo, 1);
-            
-            
-            //return Ok(await _postRepository.Paginate(HttpContext.Request));
-            
             return View(allPosts);
         }
 
-        public async Task<IActionResult> Show(string slug)
-        {
-            Post post = await _postRepository.FindWithCategoryAuthorAndCommentsForSlug(slug);
-            ShowBlogViewModel viewModel = new ShowBlogViewModel()
-            {
-                Post = post
-            };
-
-            return View(viewModel);
-        }
+        //
+        // public async Task<IActionResult> Show(string slug)
+        // {
+        //     Post post = await _postRepository.FindWithCategoryAuthorAndCommentsForSlug(slug);
+        //     ShowBlogViewModel viewModel = new ShowBlogViewModel()
+        //     {
+        //         Post = post
+        //     };
+        //
+        //     return View(viewModel);
+        // }
     }
 }
